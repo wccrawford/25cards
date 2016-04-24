@@ -1,0 +1,10 @@
+version: '1'
+services:
+  app:
+    build: .
+    ports:
+      - "8888:8888"
+    depends_on:
+      redis
+  redis:
+    image: redis
