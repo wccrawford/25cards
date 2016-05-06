@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Items",
+  "type": "array",
+  "items": {
+    "title": "Item",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "The unique ID for an item",
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "value": {
+        "type": "integer"
+      },
+      "ingredients": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "quantity"
+          ]
+        }
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "value"
+    ]
+  }
+}

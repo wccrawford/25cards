@@ -11,6 +11,7 @@ module.exports = [
         name: 'client',
         entry: {
             "client": './src/client.js',
+            "client-login": './src/client-login.js'
         },
         output: {
             path: path.join(__dirname, 'dst/html'),

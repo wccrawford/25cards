@@ -1,0 +1,13 @@
+[
+  {
+    "id": "test",
+    "name": "Test Item",
+    "value": 100,
+    "ingredients": [
+      {
+        "id": "ing1",
+        "quantity": 1
+      }
+    ]
+  }
+]
