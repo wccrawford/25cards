@@ -1,0 +1,57 @@
+.Card {
+    border: 0.1em solid grey;
+    background-color:lightgray;
+    border-radius: 10%;
+    margin: 0.2em;
+    padding: 1em;
+    /*width: calc(20% - 2.6em);*/
+    /*height: calc(20% - 2.6em);*/
+    width: 100%;
+    /*height: 100%;*/
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    display: flex;
+}
+
+#master .Card.nothing {
+    background: linear-gradient(lightgray, lightgray 30%, beige 31%, beige 69%, lightgray 70%, lightgray);
+}
+
+#master .Card.team1 {
+    background: linear-gradient(lightgray, lightgray 30%, lightblue 31%, lightblue 69%, lightgray 70%, lightgray);
+}
+
+#master .Card.team2 {
+    background: linear-gradient(lightgray, lightgray 30%, pink 31%, pink 69%, lightgray 70%, lightgray);
+}
+
+#master .Card.killer {
+    background: linear-gradient(lightgray, lightgray 30%, black 31%, black 69%, lightgray 70%, lightgray);
+    color: white;
+}
+
+#master .Card.show.nothing,
+#viewer .Card.show.nothing {
+    border-color: tan;
+    background: beige;
+}
+
+#master .Card.show.team1,
+#viewer .Card.show.team1 {
+    border-color: blue;
+    background: lightblue;
+}
+
+#master .Card.show.team2,
+#viewer .Card.show.team2 {
+    border-color: red;
+    background: pink;
+}
+
+#master .Card.show.killer,
+#viewer .Card.show.killer {
+    border-color: red;
+    background: black;
+    color: white;
+}

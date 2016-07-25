@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Main from './js/Main.jsx';
+import Viewer from './js/Viewer.jsx';
 
 document.addEventListener("contextmenu", function(e){
     e.preventDefault();
 }, false);
 
 ReactDOM.render(
-    <Main />,
+    <Viewer />,
     document.getElementById('wrapper')
 );

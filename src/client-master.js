@@ -1,18 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import Plant from './plant';
-// import Game from './game.jsx';
-import Login from './js/Login.jsx';
-
-// require("../scss/style.scss");
+import Master from './js/Master.jsx';
 
 document.addEventListener("contextmenu", function(e){
     e.preventDefault();
 }, false);
 
-
 ReactDOM.render(
-    <Login />,
+    <Master />,
     document.getElementById('wrapper')
 );

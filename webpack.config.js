@@ -11,7 +11,8 @@ module.exports = [
         name: 'client',
         entry: {
             "client": './src/client.js',
-            "client-login": './src/client-login.js'
+            "client-viewer": './src/client-viewer.js',
+            "client-master": './src/client-master.js'
         },
         output: {
             path: path.join(__dirname, 'dst/html'),
@@ -26,6 +27,11 @@ module.exports = [
                     query: {
                         presets: ['es2015', 'react']
                     }
+                },
+                {
+                    test: /.css$/,
+                    loader: 'style!css',
+                    exclude: /node_modules/
                 },
                 {
                     test: /.scss$/,
@@ -78,17 +84,17 @@ module.exports = [
                     query: {
                         presets: ['es2015', 'react']
                     }
-                // },
+                },
                 // {
                 //     test: /.scss$/,
                 //     loader: 'style!css!sass',
                 //     exclude: /node_modules/
                 // },
-                // {
-                //     test: /.json$/,
-                //     loader: 'json',
-                //     exclude: /node_modules/
-                // },
+                {
+                    test: /.json$/,
+                    loader: 'json',
+                    exclude: /node_modules/
+                }
                 // {
                 //     test: /.jpg$/,
                 //     loader: 'file',
@@ -102,7 +108,7 @@ module.exports = [
                 //     query: {
                 //         name: 'images/[name].[ext]'
                 //     }
-                }
+                // }
             ]
         },
         context: __dirname,
