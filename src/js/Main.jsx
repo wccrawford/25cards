@@ -11,11 +11,10 @@ export default class Main extends React.Component {
     // }
 
     componentDidMount() {
-        console.log('mount');
         this.socket = io();
         this.socket.on('startGame', (message) => {
             console.log(message);
-            // document.location.href = document.location.origin + '/master/' + message.game_id;
+            document.location.href = document.location.origin + '/master/' + message.game_id;
         });
     }
 

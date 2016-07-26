@@ -1,7 +1,7 @@
 var express =require('express');
 var app = express();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+var ioServer = require('socket.io');
 var path = require('path');
 var expressSession = require('express-session');
 var RedisStore = require("connect-redis")(expressSession);
@@ -11,10 +11,8 @@ var passport = require('passport'),
 var redis = require('redis');
 var redisClient = redis.createClient();
 var seedrandom = require('seedrandom');
-// var shuffle = require('./js/shuffle');
 import shuffle from './js/shuffle';
 var nounlist = require('./data/nounlist.json');
-// console.log(nounlist);
 
 var secret = 'secret';
 var port = process.env.SERVER_PORT || 8888;
@@ -25,6 +23,7 @@ var session = expressSession({
     saveUninitialized: true
 });
 app.use(session);
+var io = new ioServer();
 io.use(shareSession(session, {
     autoSave: true
 }));
@@ -38,6 +37,7 @@ app.use(passport.session());
 require('file?name=html/index.html!./html/index.html');
 require('file?name=html/viewer.html!./html/viewer.html');
 require('file?name=html/master.html!./html/master.html');
+require('file?name=html/cast-receiver.html!./html/cast-receiver.html');
 
 passport.serializeUser(function(user,done){
     done(null, user.id); // the user id that you have in the session
@@ -72,61 +72,25 @@ passport.use('local',
             id: username,
             name: username
         });
-        
-        // User.findOne({ username: username }, function (err, user) {
-        //     if (err) { return done(err); }
-        //     if (!user) {
-        //         return done(null, false, { message: 'Incorrect username.' });
-        //     }
-        //     if (!user.validPassword(password)) {
-        //         return done(null, false, { message: 'Incorrect password.' });
-        //     }
-        //     return done(null, user);
-        // });
     }
 ));
 
-// app.post('/login',
-//     passport.authenticate('local'),
-//     function(req, res) {
-//         res.redirect('/');
-//     }
-// );
-
-// app.get('/login', function (req, res) {
-//     res.sendFile(__dirname + '/html/login.html');
-// });
-
-app.use(express.static(__dirname + '/html'))
+app.use(express.static(__dirname + '/html'));
 
 server.listen(port, function() {;
     console.log('Listening on *:' + port);
 }); // Both http and websockets servers on the same port
 
-function setCards(socket, room, cards) {
-    // shuffledCards.forEach(function(card) {
-    //     if(!card.flipped) {
-    //         card.type = 'unknown';
-    //     }
-    // });
+io.attach(server);
 
+function setCards(socket, room, cards) {
     io.sockets.in(room).emit('setCards', {
         id: socket.handshake.session.game_id,
         cards: cards
     });
-
-    // io.sockets.sockets.forEach(function(target, index) {
-    //     if(target.room == socket.room) {
-    //
-    //     }
-    // });
 }
 
 io.on('connection', function (socket) {
-    // if(!socket.handshake.session.name) {
-    //     socket.handshake.session.name = 'Guest' + Math.ceil(Math.random() * 1000000);
-    // }
-    // socket.emit('news', { hello: 'world' });
     socket.on('message', function(message) {
         io.emit('message', socket.handshake.session.name + ': ' + message);
     });
@@ -149,9 +113,9 @@ io.on('connection', function (socket) {
         let words = shuffle(nounlist, random).slice(0,25);
         let cards = words.map(function(word, index) {
             let cardType = 'nothing';
-            if(index < 9) {
+            if(index < 10) {
                 cardType = 'team1';
-            } else if (index < 17) {
+            } else if (index < 18) {
                 cardType = 'team2';
             } else if (index == 24) {
                 cardType = 'killer';
@@ -176,18 +140,4 @@ io.on('connection', function (socket) {
             setCards(socket, socket.room, cards);
         }
     });
-    
-    // socket.on('setName', function(newName, callback) {
-    //     let oldName = socket.handshake.session.name;
-    //     io.emit('message', oldName + ' renamed to ' + newName);
-    //     socket.handshake.session.name = newName;
-    //
-    //     if(typeof(callback) == 'function') {
-    //         callback(oldName, newName);
-    //     }
-    // });
-    
-    // socket.on('registerUsername', function(username, password, callback) {
-    //
-    // });
 });

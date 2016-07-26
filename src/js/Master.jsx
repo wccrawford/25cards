@@ -4,6 +4,8 @@ import Card from './Card.jsx';
 
 import './style.css';
 
+import GoogleCast from './googlecast.js';
+
 export default class Master extends React.Component {
     constructor(props) {
         super(props);
@@ -12,6 +14,8 @@ export default class Master extends React.Component {
             id: null,
             cards: []
         };
+
+        this.googleCast = new GoogleCast();
     }
 
     componentDidMount() {
@@ -21,7 +25,8 @@ export default class Master extends React.Component {
             this.setState({
                 id: message.id,
                 cards: message.cards
-            })
+            });
+            this.googleCast.setViewerUrl(document.location.origin + '/viewer/' + message.id)
         });
     }
 
