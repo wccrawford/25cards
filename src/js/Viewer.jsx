@@ -17,7 +17,6 @@ export default class Viewer extends React.Component {
     componentDidMount() {
         this.socket = io();
         this.socket.on('setCards', (message) => {
-            console.log(message);
             this.setState({
                 id: message.id,
                 cards: message.cards
@@ -26,24 +25,20 @@ export default class Viewer extends React.Component {
     }
 
     setShow(index, show) {
-        // let cards = this.state.cards;
-        // cards[index].show = show;
-        // this.setState({
-        //     cards: cards
-        // });
+
     }
 
     render() {
         let cards = this.state.cards.map((card, index) => {
             return (
-                <div style={{display:'flex',width:'20%',height:'20%','text-align':'center'}}>
+                <div key={'card'+index} style={{display:'flex',width:'20%',height:'20%','textAlign':'center'}}>
                     <Card word={card.word} type={card.type} show={card.show} setShow={this.setShow.bind(this)} index={index}></Card>
                 </div>
             );
         });
 
         return (
-            <div id="viewer" style={{display:'flex','flex-wrap':'wrap'}}>
+            <div id="viewer" style={{display:'flex','flexWrap':'wrap'}}>
                 {cards}
             </div>
         );

@@ -22,11 +22,15 @@ export default class Main extends React.Component {
         this.socket.emit('createGame');
     }
 
+    handleJoinGame() {
+        document.location.href = document.location.origin + '/viewer/' + this.refs['gameid'].value;
+    }
+
     render() {
         return (
             <div id="main">
                 <div>
-                    <label>Game ID</label><input type="text" name="gameid"/><button name="joingame">Join Game</button>
+                    <label>Game ID</label><input type="text" name="gameid" ref="gameid" id="gameid"/><button name="joingame" onClick={this.handleJoinGame.bind(this)}>Join Game</button>
                 </div>
                 <div>
                     <button name="creategame" onClick={this.handleStartGameClick.bind(this)}>Create Game</button>
