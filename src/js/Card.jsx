@@ -12,7 +12,6 @@ class Card extends Component {
     }
 
     handleClick() {
-        console.log(this.show);
         // this.setState({
         //     show: !this.state.show
         // });
