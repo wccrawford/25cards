@@ -12,7 +12,7 @@ var redis = require('redis');
 var redisClient = redis.createClient();
 var seedrandom = require('seedrandom');
 import shuffle from './js/shuffle';
-var nounlist = require('./data/nounlist.json');
+var nounlist = require('./data/nounlist2.json');
 
 var secret = 'secret';
 var port = process.env.SERVER_PORT || 8888;
