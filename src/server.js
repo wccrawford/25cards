@@ -113,9 +113,9 @@ io.on('connection', function (socket) {
         let words = shuffle(nounlist, random).slice(0,25);
         let cards = words.map(function(word, index) {
             let cardType = 'nothing';
-            if(index < 10) {
+            if(index < 9) {
                 cardType = 'team1';
-            } else if (index < 18) {
+            } else if (index < 17) {
                 cardType = 'team2';
             } else if (index == 24) {
                 cardType = 'killer';
